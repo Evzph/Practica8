@@ -1,0 +1,101 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    max-width: 750px;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+}    
+
+h1 {
+    text-align: center;
+    color: #0f172a;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+.formulario input,
+.formulario select,
+.formulario textarea {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.formulario input:focus,
+.formulario select:focus,
+.formulario textarea:focus {
+    border-color: #3b82f6;
+    outline: none;
+    box-shadow: 0 0 8px rgba(59,130,246,0.3);
+}
+
+
+.formulario label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+    color: #1e293b;
+}
+
+.formulario button {
+    flex: 1;
+    padding: 12px;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.formulario button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.formulario .botones {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.validacion {
+    margin-top: 15px;
+    text-align: center;
+    color: #ef4444;
+    font-weight: bold;
+}
+
+#codigoQR {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+#codigoQR img {
+    width: 180px;
+    height: 180px;
+}
+
+footer {
+    background-color: #0f172a;
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    margin-top: 30px;
+    border-radius: 0 0 15px 15px;
+}

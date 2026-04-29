@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generador de Códigos QR</title>
+    <link rel="stylesheet" href="./Archivos/estilo.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Generador de Códigos QR</h1>
+
+    <div class="formulario">
+        <label for="NombresyApellidos">Nombre y Apellido</label>
+        <input id="NombresyApellidos" type="text" placeholder="Ej: Juan Carlos II">
+
+        <label for="Empresa">Empresa</label>
+        <input id="Empresa" type="text" placeholder="Nombre de la empresa">
+
+        <label for="Cargo">Cargo</label>
+        <input id="Cargo" type="text" placeholder="Ej: Desarrollador">
+
+        <label for="Area">Área de Trabajo</label>
+        <select id="Area">
+            <option value="Marketing">Marketing</option>
+            <option value="IT">Tecnología / IT</option>
+            <option value="RRHH">Recursos Humanos</option>
+            <option value="Ventas">Ventas</option>
+            <option value="Administración">Administración</option>
+        </select>
+
+        <label for="Intereses">Intereses (Ctrl + click para elegir varios)</label>
+        <select id="Intereses" multiple size="4">
+            <option value="Tecnología">Tecnología</option>
+            <option value="Viajes">Viajes</option>
+            <option value="Lectura">Lectura</option>
+            <option value="Música">Música</option>
+            <option value="Cocinar">Cocinar</option>
+            <option value="Bailar">Bailar</option>
+            <option value="Deportes">Deportes</option>
+            <option value="Actividades Recreativas">Actividades Recreativas</option>
+        </select>
+
+        <label for="Telefono">Teléfono</label>
+        <input id="Telefono" type="text" placeholder="809-559-0000">
+
+        <label for="Celular">Celular</label>
+        <input id="Celular" type="text" placeholder="809-000-0000">
+
+        <label for="Correo">Correo Personal</label>
+        <input id="Correo" type="email" placeholder="ejemplo@gmail.com">
+
+        <label for="Web">Sitio Web</label>
+        <input id="Web" type="url" placeholder="https://tusitioweb.com">
+
+        <label for="Direccion">Dirección</label>
+        <textarea id="Direccion" rows="3" placeholder="Calle, Ciudad, Region, País"></textarea>
+
+        <div class="botones">
+            <button id="GenerarCodigo">Generar Código QR</button>
+            <button id="Limpiar">Limpiar</button>
+            <button id="DescargarQR">Descargar QR</button>
+        </div>
+    </div>
+
+    <div class="validacion"></div>
+
+    <div id="codigoQR"></div>
+</div>
+
+<script src="./Archivos/queryjan.js"></script>
+<script src="./Archivos/qrcode.js"></script>
+<script>
+    const qrContenedor = document.getElementById("codigoQR");
+    const qr = new QRCode(qrContenedor, {
+        width: 220,
+        height: 250
+    });
+
+    document.getElementById("GenerarCodigo").addEventListener("click", () => {
+        const nombre = document.getElementById("NombresyApellidos").value.trim();
+        const empresa = document.getElementById("Empresa").value.trim();
+        const cargo = document.getElementById("Cargo").value.trim();
+        const area = document.getElementById("Area").value;
+        const intereses = Array.from(document.getElementById("Intereses").selectedOptions).map(opt => opt.value).join(', ');
+        const telefono = document.getElementById("Telefono").value.trim();
+        const celular = document.getElementById("Celular").value.trim();
+        const correo = document.getElementById("Correo").value.trim();
+        const web = document.getElementById("Web").value.trim();
+        const direccion = document.getElementById("Direccion").value.trim();
+
+        const validacion = document.querySelector(".validacion");
+        validacion.innerText = "";
+
+        if (!nombre || !empresa || !cargo || !correo || !celular) {
+            validacion.innerText = "Por favor completa todos los campos obligatorios.";
+            return;
+        }
+
+        const datos = `
+Nombre: ${nombre}
+Empresa: ${empresa}
+Cargo: ${cargo}
+Área: ${area}
+Intereses: ${intereses}
+Teléfono: ${telefono}
+Celular: ${celular}
+Correo: ${correo}
+Web: ${web}
+Dirección: ${direccion}
+`.trim();
+
+        qr.makeCode(datos);
+    });
+
+    document.getElementById("Limpiar").addEventListener("click", () => {
+        document.querySelectorAll(".formulario input, .formulario textarea").forEach(el => el.value = "");
+        document.getElementById("Intereses").selectedIndex = -1;
+        document.getElementById("codigoQR").innerHTML = "";
+        document.querySelector(".validacion").innerText = "";
+    });
+
+    document.getElementById("DescargarQR").addEventListener("click", () => {
+        const img = qrContenedor.querySelector("img");
+        if (img) {
+            const a = document.createElement("a");
+            a.href = img.src;
+            a.download = "Codigo-QR.png";
+            a.click();
+        } else {
+            alert("Primero genera un código QR.");
+        }
+    });
+</script>
+
+ <footer>
+        &copy; 2026 Ebenezer Peña, SRL
+  </footer>
+
+</body>
+</html>
